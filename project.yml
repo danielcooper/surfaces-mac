@@ -1,0 +1,69 @@
+name: Surfaces
+options:
+  bundleIdPrefix: coops
+  deploymentTarget:
+    macOS: "15.0"
+  xcodeVersion: "16.0"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+
+targets:
+  Surfaces:
+    type: application
+    platform: macOS
+    sources:
+      - Surfaces
+    info:
+      path: Surfaces/Info.plist
+      properties:
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: coops.surfaces
+        PRODUCT_NAME: Surfaces
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "6.0"
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: HGQW7A6TH6
+        ENABLE_HARDENED_RUNTIME: YES
+        GENERATE_INFOPLIST_FILE: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        INFOPLIST_KEY_CFBundleDisplayName: Surfaces
+        INFOPLIST_KEY_LSUIElement: YES
+        INFOPLIST_KEY_NSHumanReadableCopyright: "Copyright © 2026 Daniel Cooper. MIT licence."
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.productivity
+        MACOSX_DEPLOYMENT_TARGET: "15.0"
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+        Release:
+          SWIFT_OPTIMIZATION_LEVEL: -O
+
+  SurfacesTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - SurfacesTests
+    dependencies:
+      - target: Surfaces
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: coops.surfaces.tests
+        SWIFT_VERSION: "6.0"
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: HGQW7A6TH6
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Surfaces.app/Contents/MacOS/Surfaces"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+
+schemes:
+  Surfaces:
+    build:
+      targets:
+        Surfaces: all
+        SurfacesTests: [test]
+    test:
+      targets:
+        - SurfacesTests
